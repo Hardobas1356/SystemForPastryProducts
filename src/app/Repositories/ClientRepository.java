@@ -18,10 +18,7 @@ public class ClientRepository
 
     public ArrayList<Client> getAll() throws SQLException
     {
-        if (connect == null)
-        {
-            throw new SQLException("No connection to db!");
-        }
+        CheckConnection();
 
         String sql = "SELECT id,Name, Adress, City FROM Client";
         ArrayList<Client> result = new ArrayList<Client>();
@@ -41,20 +38,13 @@ public class ClientRepository
 
     public boolean update() throws SQLException
     {
-        if (connect == null)
-        {
-            throw new SQLException("No connection to db!");
-        }
 
         return false;
     }
 
     public boolean delete(int id) throws SQLException
     {
-        if (connect == null)
-        {
-            throw new SQLException("No connection to db!");
-        }
+        CheckConnection();
 
         int rowsAffected = 0;
 
@@ -71,10 +61,7 @@ public class ClientRepository
 
     public boolean add(Client client) throws SQLException
     {
-        if (connect == null)
-        {
-            throw new SQLException("No connection to db!");
-        }
+        CheckConnection();
 
         String sql = "insert into client(name, adress, city) VALUES (?,?,?)";
         int rows = 0;
@@ -89,5 +76,13 @@ public class ClientRepository
         }
 
         return rows > 0;
+    }
+
+    private void CheckConnection() throws SQLException
+    {
+        if (connect == null)
+        {
+            throw new SQLException("No connection to db!");
+        }
     }
 }
