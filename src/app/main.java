@@ -162,6 +162,13 @@ public class main extends javax.swing.JFrame
 
     private void DeleteClientButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteClientButtonActionPerformed
 
+        int row = jTable1.getSelectedRow();
+        if (row == -1)
+        {
+            JOptionPane.showMessageDialog(this, "Please select a client first.");
+            return;
+        }
+
         String id = tableModel.getValueAt(jTable1.getSelectedRow(), 0).toString();
         int clientId = Integer.parseInt(id);
 

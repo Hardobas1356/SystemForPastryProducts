@@ -45,7 +45,7 @@ public class ClientRepository
 
         try (PreparedStatement stmt = connect.prepareStatement(sql);)
         {
-            stmt.setString(1, city);
+            stmt.setString(1, "%"+city+"%");
             ResultSet rs = stmt.executeQuery();
             
             while (rs.next())
