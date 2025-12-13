@@ -16,7 +16,7 @@ public class ClientRepository
         connect = conn.getConnection();
     }
 
-    public ArrayList<Client> getAll() throws SQLException
+    public ArrayList<Client> selectAll() throws SQLException
     {
         CheckConnection();
 
@@ -25,6 +25,29 @@ public class ClientRepository
 
         try (Statement stmt = connect.createStatement(); ResultSet rs = stmt.executeQuery(sql))
         {
+            while (rs.next())
+            {
+                Client client = new Client(rs.getInt("Id"), rs.getString("Name"), rs.getString("Adress"), rs.getString("City"));
+
+                result.add(client);
+            }
+        }
+
+        return result;
+    }
+    
+    public ArrayList<Client> selectByCity(String city) throws SQLException
+    {
+        CheckConnection();
+
+        String sql = "SELECT id,Name, Adress, City FROM Client WHERE LOWER(City) LIKE LOWER(?)";
+        ArrayList<Client> result = new ArrayList<Client>();
+
+        try (PreparedStatement stmt = connect.prepareStatement(sql);)
+        {
+            stmt.setString(1, city);
+            ResultSet rs = stmt.executeQuery();
+            
             while (rs.next())
             {
                 Client client = new Client(rs.getInt("Id"), rs.getString("Name"), rs.getString("Adress"), rs.getString("City"));

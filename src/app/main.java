@@ -36,6 +36,8 @@ public class main extends javax.swing.JFrame
         jTable1 = new javax.swing.JTable();
         DeleteClientButton = new javax.swing.JButton();
         AddClientButton = new javax.swing.JButton();
+        cityFilterTextField = new javax.swing.JTextField();
+        cityFilterButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(600, 600));
@@ -93,17 +95,33 @@ public class main extends javax.swing.JFrame
             }
         });
 
+        cityFilterButton.setText("Filter by name");
+        cityFilterButton.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                cityFilterButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(AddClientButton)
-                    .addComponent(DeleteClientButton))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(AddClientButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(DeleteClientButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cityFilterTextField))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(cityFilterButton)
+                        .addContainerGap())))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -116,6 +134,10 @@ public class main extends javax.swing.JFrame
                 .addComponent(AddClientButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(DeleteClientButton)
+                .addGap(18, 18, 18)
+                .addComponent(cityFilterTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cityFilterButton)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -125,8 +147,8 @@ public class main extends javax.swing.JFrame
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 492, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(90, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(94, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -149,12 +171,12 @@ public class main extends javax.swing.JFrame
         };
 
         int option = JOptionPane.showOptionDialog(this, "Delete client with id: " + id, "Confirm deletion?", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
-        
+
         if (option == 1)
         {
             return;
         }
-        
+
         try
         {
             if (clientRepo.delete(clientId))
@@ -231,6 +253,26 @@ public class main extends javax.swing.JFrame
         }
     }//GEN-LAST:event_AddClientButtonActionPerformed
 
+    private void cityFilterButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_cityFilterButtonActionPerformed
+    {//GEN-HEADEREND:event_cityFilterButtonActionPerformed
+        String city = cityFilterTextField.getText().trim();
+
+        if (city.isBlank())
+        {
+            loadTable();
+            return;
+        }
+
+        try
+        {
+            loadTable(clientRepo.selectByCity(city));
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+        }
+    }//GEN-LAST:event_cityFilterButtonActionPerformed
+
     public static void main(String args[])
     {
         java.awt.EventQueue.invokeLater(() -> new main().setVisible(true));
@@ -243,7 +285,7 @@ public class main extends javax.swing.JFrame
         try
         {
             ArrayList<Client> clients
-                    = clientRepo.getAll();
+                    = clientRepo.selectAll();
             for (Client client : clients)
             {
                 tableModel.addRow(client.toArray());
@@ -255,9 +297,22 @@ public class main extends javax.swing.JFrame
         }
     }
 
+    private void loadTable(ArrayList<Client> clients)
+    {
+        tableModel.setRowCount(0);
+
+        for (Client client : clients)
+        {
+            tableModel.addRow(client.toArray());
+        }
+
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AddClientButton;
     private javax.swing.JButton DeleteClientButton;
+    private javax.swing.JButton cityFilterButton;
+    private javax.swing.JTextField cityFilterTextField;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
