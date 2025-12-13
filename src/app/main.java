@@ -192,7 +192,7 @@ public class main extends javax.swing.JFrame
 
             int option = JOptionPane.showOptionDialog(this, windowContent, "Enter data", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
 
-            if (option == JOptionPane.CANCEL_OPTION)
+            if (option == 1)
             {
                 return;
             }
