@@ -143,6 +143,18 @@ public class main extends javax.swing.JFrame
         String id = tableModel.getValueAt(jTable1.getSelectedRow(), 0).toString();
         int clientId = Integer.parseInt(id);
 
+        Object[] options =
+        {
+            "Delete", "Cancel"
+        };
+
+        int option = JOptionPane.showOptionDialog(this, "Delete client with id: " + id, "Confirm deletion?", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+        
+        if (option == 1)
+        {
+            return;
+        }
+        
         try
         {
             if (clientRepo.delete(clientId))
@@ -214,7 +226,7 @@ public class main extends javax.swing.JFrame
             {
                 System.out.println(e.getMessage());
             }
-            
+
             break;
         }
     }//GEN-LAST:event_AddClientButtonActionPerformed
