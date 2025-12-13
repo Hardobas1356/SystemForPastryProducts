@@ -50,14 +50,14 @@ public class main extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Id", "Name", "Adress"
+                "Id", "Name", "Adress", "City"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, true, true
+                false, true, true, true
             };
 
             public Class getColumnClass(int columnIndex) {

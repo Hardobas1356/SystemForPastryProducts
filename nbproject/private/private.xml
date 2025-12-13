@@ -3,8 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/archie/Documents/SystemForPastryProducts/src/app/Client.java</file>
-            <file>file:/home/archie/Documents/SystemForPastryProducts/src/app/Pastry.java</file>
+            <file>file:/home/archie/Documents/SystemForPastryProducts/src/app/Connect.java</file>
+            <file>file:/home/archie/Documents/SystemForPastryProducts/src/app/Repositories/ClientRepository.java</file>
             <file>file:/home/archie/Documents/SystemForPastryProducts/src/app/main.java</file>
         </group>
     </open-files>

@@ -18,14 +18,14 @@ public class ClientRepository {
         if(connect == null)
             throw new SQLException("No connection to db!");
         
-        String sql = "SELECT id,Name, Adress FROM Client";
+        String sql = "SELECT id,Name, Adress, City FROM Client";
         ArrayList<Client> result = new ArrayList<Client>();
  
         try (Statement stmt = connect.createStatement(); 
              ResultSet rs = stmt.executeQuery(sql)) 
         {
             while(rs.next()){
-               Client client = new Client(rs.getInt("Id"),rs.getString("Name"),rs.getString("Adress"));
+               Client client = new Client(rs.getInt("Id"),rs.getString("Name"),rs.getString("Adress"),rs.getString("City"));
                
                result.add(client);
             }
