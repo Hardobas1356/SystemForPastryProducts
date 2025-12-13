@@ -34,19 +34,19 @@ public class ClientRepository {
         return result;
     }
     
-    public boolean Update() throws SQLException{
+    public boolean update() throws SQLException{
         if(connect == null)
             throw new SQLException("No connection to db!");
         
         return false;
     }
     
-    public boolean Delete(int id) throws SQLException{
+    public boolean delete(int id) throws SQLException{
         if(connect == null)
             throw new SQLException("No connection to db!");
         int rowsAffected = 0;
         
-        String sql = "Delete from Clients where id=?";
+        String sql = "Delete from Client where id=?";
         try (PreparedStatement stmt = connect.prepareStatement(sql);) 
         {
             stmt.setInt(1, id);

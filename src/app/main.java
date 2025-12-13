@@ -3,25 +3,26 @@ package app;
 import app.Models.Client;
 import app.Repositories.ClientRepository;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class main extends javax.swing.JFrame {
-    
+
     private Connect query;
     private DefaultTableModel tableModel;
     private ClientRepository clientRepo;
 
     public main() {
-        
+
         initComponents();
-        
+
         query = new Connect();
         clientRepo = new ClientRepository(query);
-        tableModel = (DefaultTableModel)jTable1.getModel();
-        
+        tableModel = (DefaultTableModel) jTable1.getModel();
+
         try {
-            ArrayList<Client> clients =
-               clientRepo.getAll();
+            ArrayList<Client> clients
+                    = clientRepo.getAll();
             for (Client client : clients) {
                 tableModel.addRow(client.toArray());
             }
@@ -29,7 +30,7 @@ public class main extends javax.swing.JFrame {
             System.out.println(e.getMessage());
         }
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -37,8 +38,8 @@ public class main extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jButton2 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        DeleteClientButton = new javax.swing.JButton();
+        AddClientButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(600, 600));
@@ -71,9 +72,14 @@ public class main extends javax.swing.JFrame {
         jTable1.setColumnSelectionAllowed(true);
         jScrollPane1.setViewportView(jTable1);
 
-        jButton2.setText("Delete");
+        DeleteClientButton.setText("Delete");
+        DeleteClientButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DeleteClientButtonActionPerformed(evt);
+            }
+        });
 
-        jButton1.setText("Add");
+        AddClientButton.setText("Add");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -83,8 +89,8 @@ public class main extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(AddClientButton)
+                    .addComponent(DeleteClientButton))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -95,9 +101,9 @@ public class main extends javax.swing.JFrame {
                 .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(39, 39, 39)
-                .addComponent(jButton1)
+                .addComponent(AddClientButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2)
+                .addComponent(DeleteClientButton)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -107,8 +113,8 @@ public class main extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 488, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(94, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 492, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(90, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -120,13 +126,28 @@ public class main extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void DeleteClientButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteClientButtonActionPerformed
+        String id = tableModel.getValueAt(jTable1.getSelectedRow(), 0).toString();
+        int clientId = Integer.parseInt(id);
+        
+        try {
+            if (clientRepo.delete(clientId)) {
+                tableModel.removeRow(jTable1.getSelectedRow());
+            } else {
+                JOptionPane.showMessageDialog(this,"Error! Could not deleted selected row");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }//GEN-LAST:event_DeleteClientButtonActionPerformed
+
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(() -> new main().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton AddClientButton;
+    private javax.swing.JButton DeleteClientButton;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
