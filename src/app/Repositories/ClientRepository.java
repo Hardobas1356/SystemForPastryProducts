@@ -59,10 +59,25 @@ public class ClientRepository
         return result;
     }
 
-    public boolean update() throws SQLException
+    public boolean update(int id, Client updatedClient) throws SQLException
     {
-
-        return false;
+        CheckConnection();
+        
+        int rows = 0;
+        String sql = "UPDATE client SET name=?, adress=?,city=? where id=?";
+        
+        try(PreparedStatement stmt = connect.prepareStatement(sql))
+        {
+            stmt.setString(1, updatedClient.getName());
+            stmt.setString(2, updatedClient.getAdress());
+            stmt.setString(3, updatedClient.getCity());
+            stmt.setInt(4, id);
+            
+            rows = stmt.executeUpdate();
+            System.out.println("Rows affected: " + rows);
+        }
+        
+        return rows > 0;
     }
 
     public boolean delete(int id) throws SQLException

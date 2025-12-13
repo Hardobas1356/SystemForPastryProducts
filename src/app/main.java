@@ -38,6 +38,7 @@ public class main extends javax.swing.JFrame
         AddClientButton = new javax.swing.JButton();
         cityFilterTextField = new javax.swing.JTextField();
         cityFilterButton = new javax.swing.JButton();
+        UpdateClientRow = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(600, 600));
@@ -77,7 +78,7 @@ public class main extends javax.swing.JFrame
         jTable1.setColumnSelectionAllowed(true);
         jScrollPane1.setViewportView(jTable1);
 
-        DeleteClientButton.setText("Delete");
+        DeleteClientButton.setText("Delete row");
         DeleteClientButton.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -104,24 +105,31 @@ public class main extends javax.swing.JFrame
             }
         });
 
+        UpdateClientRow.setText("Update row");
+        UpdateClientRow.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                UpdateClientRowActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(AddClientButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(DeleteClientButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(cityFilterTextField))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(cityFilterButton)
-                        .addContainerGap())))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(AddClientButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(cityFilterTextField))
+                    .addComponent(cityFilterButton)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(DeleteClientButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(UpdateClientRow, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -134,7 +142,9 @@ public class main extends javax.swing.JFrame
                 .addComponent(AddClientButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(DeleteClientButton)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(UpdateClientRow)
+                .addGap(13, 13, 13)
                 .addComponent(cityFilterTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cityFilterButton)
@@ -219,7 +229,7 @@ public class main extends javax.swing.JFrame
                 "Enter", "Cancel"
             };
 
-            int option = JOptionPane.showOptionDialog(this, windowContent, "Enter data", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
+            int option = JOptionPane.showOptionDialog(this, windowContent, "Update customer", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
 
             if (option == 1)
             {
@@ -280,6 +290,78 @@ public class main extends javax.swing.JFrame
         }
     }//GEN-LAST:event_cityFilterButtonActionPerformed
 
+    private void UpdateClientRowActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_UpdateClientRowActionPerformed
+    {//GEN-HEADEREND:event_UpdateClientRowActionPerformed
+        int row = jTable1.getSelectedRow();
+        if (row == -1)
+        {
+            JOptionPane.showMessageDialog(this, "Please select a client first.");
+            return;
+        }
+        
+        while (true)
+        {
+            JTextField nameField = new JTextField();
+            JTextField adressField = new JTextField();
+            JTextField cityField = new JTextField();
+
+            nameField.setText(tableModel.getValueAt(jTable1.getSelectedRow(), 1).toString());
+            adressField.setText(tableModel.getValueAt(jTable1.getSelectedRow(), 2).toString());
+            cityField.setText(tableModel.getValueAt(jTable1.getSelectedRow(), 3).toString());
+
+            Object[] windowContent =
+            {
+                "Name", nameField, "Adress", adressField, "City", cityField
+            };
+
+            Object[] options =
+            {
+                "Enter", "Cancel"
+            };
+
+            int option = JOptionPane.showOptionDialog(this, windowContent, "Enter data", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
+
+            if (option == 1)
+            {
+                return;
+            }
+
+            String name = nameField.getText().trim();
+            String adress = adressField.getText().trim();
+            String city = cityField.getText().trim();
+
+            if (name.isBlank() || adress.isBlank() || city.isBlank())
+            {
+                JOptionPane.showMessageDialog(this, "All fields are required.");
+
+                continue;
+            }
+
+            Client updatedClient = new Client(name, adress, city);
+            try
+            {
+                int id = Integer.parseInt(tableModel.getValueAt(jTable1.getSelectedRow(), 0).toString());
+
+                boolean result = clientRepo.update(id, updatedClient);
+                if (result)
+                {
+                    JOptionPane.showMessageDialog(this, "Client updated.");
+                    loadTable();
+                }
+                else
+                {
+                    JOptionPane.showMessageDialog(this, "Error! Could not update client.");
+                }
+            }
+            catch (Exception e)
+            {
+                System.out.println(e.getMessage());
+            }
+
+            break;
+        }
+    }//GEN-LAST:event_UpdateClientRowActionPerformed
+
     public static void main(String args[])
     {
         java.awt.EventQueue.invokeLater(() -> new main().setVisible(true));
@@ -318,6 +400,7 @@ public class main extends javax.swing.JFrame
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AddClientButton;
     private javax.swing.JButton DeleteClientButton;
+    private javax.swing.JButton UpdateClientRow;
     private javax.swing.JButton cityFilterButton;
     private javax.swing.JTextField cityFilterTextField;
     private javax.swing.JPanel jPanel1;
