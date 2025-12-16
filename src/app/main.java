@@ -23,7 +23,7 @@ public class main extends javax.swing.JFrame
         clientRepo = new ClientRepository(query);
         clientTableModel = (DefaultTableModel) ClientTable.getModel();
 
-        loadTable();
+        main.this.loadClientTable();
     }
 
     @SuppressWarnings("unchecked")
@@ -297,7 +297,7 @@ public class main extends javax.swing.JFrame
                 if (result)
                 {
                     JOptionPane.showMessageDialog(this, "New client added");
-                    loadTable();
+                    loadClientTable();
                 }
                 else
                 {
@@ -319,13 +319,13 @@ public class main extends javax.swing.JFrame
 
         if (city.isBlank())
         {
-            loadTable();
+            loadClientTable();
             return;
         }
 
         try
         {
-            loadTable(clientRepo.selectByCity(city));
+            loadClientTable(clientRepo.selectByCity(city));
         }
         catch (Exception e)
         {
@@ -389,7 +389,7 @@ public class main extends javax.swing.JFrame
                 if (result)
                 {
                     JOptionPane.showMessageDialog(this, "Client updated.");
-                    loadTable();
+                    loadClientTable();
                 }
                 else
                 {
@@ -410,7 +410,7 @@ public class main extends javax.swing.JFrame
         java.awt.EventQueue.invokeLater(() -> new main().setVisible(true));
     }
 
-    private void loadTable()
+    private void loadClientTable()
     {
         clientTableModel.setRowCount(0);
 
@@ -429,7 +429,7 @@ public class main extends javax.swing.JFrame
         }
     }
 
-    private void loadTable(ArrayList<Client> clients)
+    private void loadClientTable(ArrayList<Client> clients)
     {
         clientTableModel.setRowCount(0);
 
