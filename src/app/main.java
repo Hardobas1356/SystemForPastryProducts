@@ -1,7 +1,9 @@
 package app;
 
 import app.Models.Client;
+import app.Models.Pastry;
 import app.Repositories.ClientRepository;
+import app.Repositories.PastryRepository;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -12,18 +14,23 @@ public class main extends javax.swing.JFrame
 
     private Connect query;
     private DefaultTableModel clientTableModel;
+    private DefaultTableModel pastryTableModel;
     private ClientRepository clientRepo;
+    private PastryRepository pastryRepo;
 
     public main()
     {
-
         initComponents();
 
         query = new Connect();
         clientRepo = new ClientRepository(query);
-        clientTableModel = (DefaultTableModel) ClientTable.getModel();
+        pastryRepo = new PastryRepository(query);
 
-        main.this.loadClientTable();
+        clientTableModel = (DefaultTableModel) ClientTable.getModel();
+        pastryTableModel = (DefaultTableModel) PastryTable.getModel();
+
+        loadClientTable();
+        loadPastryTable();
     }
 
     @SuppressWarnings("unchecked")
@@ -37,10 +44,13 @@ public class main extends javax.swing.JFrame
         DeleteClientButton = new javax.swing.JButton();
         AddClientButton = new javax.swing.JButton();
         cityFilterTextField = new javax.swing.JTextField();
-        cityFilterButton = new javax.swing.JButton();
+        CityFilterButton = new javax.swing.JButton();
         UpdateClientRow = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         ClientTable = new javax.swing.JTable();
+        AddPastryButton = new javax.swing.JButton();
+        DeletePastryButton = new javax.swing.JButton();
+        UpdatePastryButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1200, 364));
@@ -80,7 +90,7 @@ public class main extends javax.swing.JFrame
         PastryTable.setColumnSelectionAllowed(true);
         jScrollPane1.setViewportView(PastryTable);
 
-        DeleteClientButton.setText("Delete row");
+        DeleteClientButton.setText("Delete Client");
         DeleteClientButton.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -89,7 +99,7 @@ public class main extends javax.swing.JFrame
             }
         });
 
-        AddClientButton.setText("Add");
+        AddClientButton.setText("Add Client");
         AddClientButton.setMaximumSize(new java.awt.Dimension(95, 26));
         AddClientButton.setMinimumSize(new java.awt.Dimension(95, 26));
         AddClientButton.setPreferredSize(new java.awt.Dimension(95, 26));
@@ -101,16 +111,16 @@ public class main extends javax.swing.JFrame
             }
         });
 
-        cityFilterButton.setText("Filter by name");
-        cityFilterButton.addActionListener(new java.awt.event.ActionListener()
+        CityFilterButton.setText("Filter clients by city");
+        CityFilterButton.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
             {
-                cityFilterButtonActionPerformed(evt);
+                CityFilterButtonActionPerformed(evt);
             }
         });
 
-        UpdateClientRow.setText("Update row");
+        UpdateClientRow.setText("Update Client");
         UpdateClientRow.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -152,6 +162,19 @@ public class main extends javax.swing.JFrame
         ClientTable.setColumnSelectionAllowed(true);
         jScrollPane3.setViewportView(ClientTable);
 
+        AddPastryButton.setText("Add Pastry");
+        AddPastryButton.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                AddPastryButtonActionPerformed(evt);
+            }
+        });
+
+        DeletePastryButton.setText("Delete Pastry");
+
+        UpdatePastryButton.setText("Update Pastry");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -161,13 +184,19 @@ public class main extends javax.swing.JFrame
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(AddClientButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(DeleteClientButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(UpdateClientRow, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(cityFilterTextField, javax.swing.GroupLayout.Alignment.LEADING))
-                    .addComponent(cityFilterButton))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 141, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(AddClientButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(DeleteClientButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(UpdateClientRow, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cityFilterTextField, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(AddPastryButton)
+                            .addComponent(DeletePastryButton)
+                            .addComponent(UpdatePastryButton)))
+                    .addComponent(CityFilterButton))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -177,15 +206,21 @@ public class main extends javax.swing.JFrame
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(39, 39, 39)
-                        .addComponent(AddClientButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(AddClientButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(AddPastryButton))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(DeleteClientButton)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(DeleteClientButton)
+                            .addComponent(DeletePastryButton))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(UpdateClientRow)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(UpdateClientRow)
+                            .addComponent(UpdatePastryButton))
                         .addGap(13, 13, 13)
                         .addComponent(cityFilterTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cityFilterButton))
+                        .addComponent(CityFilterButton))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -313,8 +348,8 @@ public class main extends javax.swing.JFrame
         }
     }//GEN-LAST:event_AddClientButtonActionPerformed
 
-    private void cityFilterButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_cityFilterButtonActionPerformed
-    {//GEN-HEADEREND:event_cityFilterButtonActionPerformed
+    private void CityFilterButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_CityFilterButtonActionPerformed
+    {//GEN-HEADEREND:event_CityFilterButtonActionPerformed
         String city = cityFilterTextField.getText().trim();
 
         if (city.isBlank())
@@ -331,7 +366,7 @@ public class main extends javax.swing.JFrame
         {
             System.out.println(e.getMessage());
         }
-    }//GEN-LAST:event_cityFilterButtonActionPerformed
+    }//GEN-LAST:event_CityFilterButtonActionPerformed
 
     private void UpdateClientRowActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_UpdateClientRowActionPerformed
     {//GEN-HEADEREND:event_UpdateClientRowActionPerformed
@@ -341,7 +376,7 @@ public class main extends javax.swing.JFrame
             JOptionPane.showMessageDialog(this, "Please select a client first.");
             return;
         }
-        
+
         while (true)
         {
             JTextField nameField = new JTextField();
@@ -405,6 +440,11 @@ public class main extends javax.swing.JFrame
         }
     }//GEN-LAST:event_UpdateClientRowActionPerformed
 
+    private void AddPastryButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_AddPastryButtonActionPerformed
+    {//GEN-HEADEREND:event_AddPastryButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_AddPastryButtonActionPerformed
+
     public static void main(String args[])
     {
         java.awt.EventQueue.invokeLater(() -> new main().setVisible(true));
@@ -440,13 +480,35 @@ public class main extends javax.swing.JFrame
 
     }
 
+    private void loadPastryTable()
+    {
+        pastryTableModel.setRowCount(0);
+
+        try
+        {
+            ArrayList<Pastry> pastries
+                    = pastryRepo.selectAll();
+            for (Pastry pastry : pastries)
+            {
+                pastryTableModel.addRow(pastry.toArray());
+            }
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+        }
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AddClientButton;
+    private javax.swing.JButton AddPastryButton;
+    private javax.swing.JButton CityFilterButton;
     private javax.swing.JTable ClientTable;
     private javax.swing.JButton DeleteClientButton;
+    private javax.swing.JButton DeletePastryButton;
     private javax.swing.JTable PastryTable;
     private javax.swing.JButton UpdateClientRow;
-    private javax.swing.JButton cityFilterButton;
+    private javax.swing.JButton UpdatePastryButton;
     private javax.swing.JTextField cityFilterTextField;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;

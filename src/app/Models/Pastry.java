@@ -39,4 +39,12 @@ public class Pastry {
     public void setAmount(int amount) {
         this.amount = amount;
     }
+    
+    public Object[] toArray()
+    {
+        return new Object[]
+        {
+            id, name, price, amount
+        };
+    }
 }
