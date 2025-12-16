@@ -43,7 +43,7 @@ public class PastryRepository
         CheckConnection();
         
         int rows = 0;
-        String sql = "UPDATE client SET name=?, price=?,amount=? where id=?";
+        String sql = "UPDATE pastry SET name=?, price=?,amount=? where id=?";
         
         try(PreparedStatement stmt = connect.prepareStatement(sql))
         {

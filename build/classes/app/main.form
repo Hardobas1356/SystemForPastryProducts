@@ -218,11 +218,17 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Delete Pastry"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="DeletePastryButtonActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="UpdatePastryButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="Update Pastry"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="UpdatePastryButtonActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

@@ -172,8 +172,22 @@ public class main extends javax.swing.JFrame
         });
 
         DeletePastryButton.setText("Delete Pastry");
+        DeletePastryButton.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                DeletePastryButtonActionPerformed(evt);
+            }
+        });
 
         UpdatePastryButton.setText("Update Pastry");
+        UpdatePastryButton.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                UpdatePastryButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -250,14 +264,14 @@ public class main extends javax.swing.JFrame
 
     private void DeleteClientButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteClientButtonActionPerformed
 
-        int row = PastryTable.getSelectedRow();
+        int row = ClientTable.getSelectedRow();
         if (row == -1)
         {
             JOptionPane.showMessageDialog(this, "Please select a client first.");
             return;
         }
 
-        String id = clientTableModel.getValueAt(PastryTable.getSelectedRow(), 0).toString();
+        String id = clientTableModel.getValueAt(ClientTable.getSelectedRow(), 0).toString();
         int clientId = Integer.parseInt(id);
 
         Object[] options =
@@ -276,7 +290,7 @@ public class main extends javax.swing.JFrame
         {
             if (clientRepo.delete(clientId))
             {
-                clientTableModel.removeRow(PastryTable.getSelectedRow());
+                clientTableModel.removeRow(ClientTable.getSelectedRow());
             }
             else
             {
@@ -307,7 +321,7 @@ public class main extends javax.swing.JFrame
                 "Enter", "Cancel"
             };
 
-            int option = JOptionPane.showOptionDialog(this, windowContent, "Update customer", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
+            int option = JOptionPane.showOptionDialog(this, windowContent, "New customer", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
 
             if (option == 1)
             {
@@ -331,8 +345,8 @@ public class main extends javax.swing.JFrame
                 boolean result = clientRepo.add(newClient);
                 if (result)
                 {
-                    JOptionPane.showMessageDialog(this, "New client added");
                     loadClientTable();
+                    JOptionPane.showMessageDialog(this, "New client added");
                 }
                 else
                 {
@@ -370,7 +384,7 @@ public class main extends javax.swing.JFrame
 
     private void UpdateClientRowActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_UpdateClientRowActionPerformed
     {//GEN-HEADEREND:event_UpdateClientRowActionPerformed
-        int row = PastryTable.getSelectedRow();
+        int row = ClientTable.getSelectedRow();
         if (row == -1)
         {
             JOptionPane.showMessageDialog(this, "Please select a client first.");
@@ -383,9 +397,9 @@ public class main extends javax.swing.JFrame
             JTextField adressField = new JTextField();
             JTextField cityField = new JTextField();
 
-            nameField.setText(clientTableModel.getValueAt(PastryTable.getSelectedRow(), 1).toString());
-            adressField.setText(clientTableModel.getValueAt(PastryTable.getSelectedRow(), 2).toString());
-            cityField.setText(clientTableModel.getValueAt(PastryTable.getSelectedRow(), 3).toString());
+            nameField.setText(clientTableModel.getValueAt(ClientTable.getSelectedRow(), 1).toString());
+            adressField.setText(clientTableModel.getValueAt(ClientTable.getSelectedRow(), 2).toString());
+            cityField.setText(clientTableModel.getValueAt(ClientTable.getSelectedRow(), 3).toString());
 
             Object[] windowContent =
             {
@@ -397,7 +411,7 @@ public class main extends javax.swing.JFrame
                 "Enter", "Cancel"
             };
 
-            int option = JOptionPane.showOptionDialog(this, windowContent, "Enter data", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
+            int option = JOptionPane.showOptionDialog(this, windowContent, "Update customer", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
 
             if (option == 1)
             {
@@ -418,13 +432,13 @@ public class main extends javax.swing.JFrame
             Client updatedClient = new Client(name, adress, city);
             try
             {
-                int id = Integer.parseInt(clientTableModel.getValueAt(PastryTable.getSelectedRow(), 0).toString());
+                int id = Integer.parseInt(clientTableModel.getValueAt(ClientTable.getSelectedRow(), 0).toString());
 
                 boolean result = clientRepo.update(id, updatedClient);
                 if (result)
                 {
-                    JOptionPane.showMessageDialog(this, "Client updated.");
                     loadClientTable();
+                    JOptionPane.showMessageDialog(this, "Client updated.");
                 }
                 else
                 {
@@ -435,15 +449,189 @@ public class main extends javax.swing.JFrame
             {
                 System.out.println(e.getMessage());
             }
-
+            
             break;
         }
     }//GEN-LAST:event_UpdateClientRowActionPerformed
 
     private void AddPastryButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_AddPastryButtonActionPerformed
     {//GEN-HEADEREND:event_AddPastryButtonActionPerformed
-        // TODO add your handling code here:
+        while (true)
+        {
+            JTextField nameField = new JTextField();
+            JTextField priceField = new JTextField();
+            JTextField amountField = new JTextField();
+
+            Object[] windowContent =
+            {
+                "Name", nameField, "Price", priceField, "Amount", amountField
+            };
+
+            Object[] options =
+            {
+                "Enter", "Cancel"
+            };
+
+            int option = JOptionPane.showOptionDialog(this, windowContent, "Add pastry", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
+
+            if (option == 1)
+            {
+                return;
+            }
+
+            String nameText = nameField.getText().trim();
+            String priceText = priceField.getText().trim();
+            String amountText = amountField.getText().trim();
+
+            if (nameText.isBlank() || priceText.isBlank() || amountText.isBlank())
+            {
+                JOptionPane.showMessageDialog(this, "All fields are required.");
+
+                continue;
+            }
+
+            try
+            {
+                double price = Double.parseDouble(priceText);
+                int amount = Integer.parseInt(amountText);
+                Pastry pastry = new Pastry(nameText, price, amount);
+
+                boolean result = pastryRepo.add(pastry);
+                if (result)
+                {
+                    loadPastryTable();
+                    JOptionPane.showMessageDialog(this, "New pastry added");
+                }
+                else
+                {
+                    JOptionPane.showMessageDialog(this, "Error! Could not add new pastry");
+                }
+            }
+            catch (Exception e)
+            {
+                System.out.println(e.getMessage());
+            }
+
+            break;
+        }
     }//GEN-LAST:event_AddPastryButtonActionPerformed
+
+    private void DeletePastryButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_DeletePastryButtonActionPerformed
+    {//GEN-HEADEREND:event_DeletePastryButtonActionPerformed
+        int row = PastryTable.getSelectedRow();
+        if (row == -1)
+        {
+            JOptionPane.showMessageDialog(this, "Please select a pastry first.");
+            return;
+        }
+
+        String id = pastryTableModel.getValueAt(PastryTable.getSelectedRow(), 0).toString();
+        int pastryId = Integer.parseInt(id);
+
+        Object[] options =
+        {
+            "Delete", "Cancel"
+        };
+
+        int option = JOptionPane.showOptionDialog(this, "Delete pastry with id: " + id, "Confirm deletion?", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+
+        if (option == 1)
+        {
+            ClientTable.clearSelection();
+            return;
+        }
+
+        try
+        {
+            if (pastryRepo.delete(pastryId))
+            {
+                pastryTableModel.removeRow(PastryTable.getSelectedRow());
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(this, "Error! Could not deleted selected row");
+            }
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+        }     
+    }//GEN-LAST:event_DeletePastryButtonActionPerformed
+
+    private void UpdatePastryButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_UpdatePastryButtonActionPerformed
+    {//GEN-HEADEREND:event_UpdatePastryButtonActionPerformed
+        int row = PastryTable.getSelectedRow();
+        if (row == -1)
+        {
+            JOptionPane.showMessageDialog(this, "Please select a pastry first.");
+            return;
+        }
+
+        while (true)
+        {
+            JTextField nameField = new JTextField();
+            JTextField priceField = new JTextField();
+            JTextField amountField = new JTextField();
+            
+            nameField.setText(pastryTableModel.getValueAt(PastryTable.getSelectedRow(), 1).toString());
+            priceField.setText(pastryTableModel.getValueAt(PastryTable.getSelectedRow(), 2).toString());
+            amountField.setText(pastryTableModel.getValueAt(PastryTable.getSelectedRow(), 3).toString());         
+
+            Object[] windowContent =
+            {
+                "Name", nameField, "Price", priceField, "Amount", amountField
+            };
+
+            Object[] options =
+            {
+                "Enter", "Cancel"
+            };
+
+            int option = JOptionPane.showOptionDialog(this, windowContent, "Update pastry", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
+
+            if (option == 1)
+            {
+                return;
+            }
+
+            String nameText = nameField.getText().trim();
+            String priceText = priceField.getText().trim();
+            String amountText = amountField.getText().trim();
+
+            if (nameText.isBlank() || priceText.isBlank() || amountText.isBlank())
+            {
+                JOptionPane.showMessageDialog(this, "All fields are required.");
+
+                continue;
+            }
+
+            try
+            {
+                double price = Double.parseDouble(priceText);
+                int amount = Integer.parseInt(amountText);
+                Pastry pastry = new Pastry(nameText, price, amount);
+                
+                int id = Integer.parseInt(pastryTableModel.getValueAt(PastryTable.getSelectedRow(), 0).toString());
+
+                boolean result = pastryRepo.update(id,pastry);
+                if (result)
+                {
+                    loadPastryTable();
+                    JOptionPane.showMessageDialog(this, "Pastry updated");
+                }
+                else
+                {
+                    JOptionPane.showMessageDialog(this, "Error! Could not update pastry");
+                }
+            }
+            catch (Exception e)
+            {
+                System.out.println(e.getMessage());
+            }
+
+            break;
+        }
+    }//GEN-LAST:event_UpdatePastryButtonActionPerformed
 
     public static void main(String args[])
     {

@@ -13,6 +13,13 @@ public class Pastry {
         this.amount = amount;
     }
 
+    public Pastry(String name, double price, int amount)
+    {
+        this.name = name;
+        this.price = price;
+        this.amount = amount;
+    }
+
     public Pastry() {
     }
 
