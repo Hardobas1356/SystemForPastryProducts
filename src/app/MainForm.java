@@ -127,7 +127,9 @@ public class MainForm extends javax.swing.JFrame
 
     private void ToSalesButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_ToSalesButtonActionPerformed
     {//GEN-HEADEREND:event_ToSalesButtonActionPerformed
-        // TODO add your handling code here:
+        SalesForm salesForm = new SalesForm();
+        salesForm.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_ToSalesButtonActionPerformed
 
     public static void main(String args[])
