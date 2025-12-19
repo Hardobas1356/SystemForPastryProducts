@@ -3,9 +3,6 @@
 <Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
-    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-      <Dimension value="[1200, 364]"/>
-    </Property>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -28,7 +25,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jPanel1" pref="1188" max="32767" attributes="0"/>
+              <Component id="jPanel1" pref="1137" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -58,25 +55,16 @@
                   <Component id="jScrollPane3" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                              <Component id="AddClientButton" alignment="0" max="32767" attributes="0"/>
-                              <Component id="DeleteClientButton" alignment="0" max="32767" attributes="0"/>
-                              <Component id="UpdateClientRow" alignment="0" max="32767" attributes="0"/>
-                              <Component id="cityFilterTextField" alignment="0" max="32767" attributes="0"/>
-                          </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="AddPastryButton" min="-2" max="-2" attributes="0"/>
-                              <Component id="DeletePastryButton" min="-2" max="-2" attributes="0"/>
-                              <Component id="UpdatePastryButton" min="-2" max="-2" attributes="0"/>
-                          </Group>
+                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                          <Component id="AddClientButton" alignment="0" max="32767" attributes="0"/>
+                          <Component id="DeleteClientButton" alignment="0" max="32767" attributes="0"/>
+                          <Component id="UpdateClientRow" alignment="0" max="32767" attributes="0"/>
+                          <Component id="cityFilterTextField" alignment="0" max="32767" attributes="0"/>
                       </Group>
                       <Component id="CityFilterButton" min="-2" max="-2" attributes="0"/>
+                      <Component id="BackButton" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="11" max="32767" attributes="0"/>
-                  <Component id="jScrollPane1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace pref="563" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -86,31 +74,21 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="AddClientButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="AddPastryButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
+                          <Component id="AddClientButton" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="DeleteClientButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="DeletePastryButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
+                          <Component id="DeleteClientButton" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="UpdateClientRow" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="UpdatePastryButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
+                          <Component id="UpdateClientRow" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
                           <Component id="cityFilterTextField" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="CityFilterButton" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="BackButton" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jScrollPane3" min="-2" pref="345" max="-2" attributes="0"/>
-                              <Component id="jScrollPane1" min="-2" pref="345" max="-2" attributes="0"/>
-                          </Group>
+                          <Component id="jScrollPane3" min="-2" pref="345" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace pref="7" max="32767" attributes="0"/>
@@ -119,31 +97,9 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Container class="javax.swing.JScrollPane" name="jScrollPane1">
-          <AuxValues>
-            <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-          </AuxValues>
-
-          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-          <SubComponents>
-            <Component class="javax.swing.JTable" name="PastryTable">
-              <Properties>
-                <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="4" rowCount="0">
-                    <Column editable="false" title="Id" type="java.lang.Integer"/>
-                    <Column editable="true" title="Name" type="java.lang.String"/>
-                    <Column editable="true" title="Price" type="java.lang.Integer"/>
-                    <Column editable="true" title="Amount" type="java.lang.Double"/>
-                  </Table>
-                </Property>
-                <Property name="columnSelectionAllowed" type="boolean" value="true"/>
-              </Properties>
-            </Component>
-          </SubComponents>
-        </Container>
         <Component class="javax.swing.JButton" name="DeleteClientButton">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Delete Client"/>
+            <Property name="text" type="java.lang.String" value="Delete"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="DeleteClientButtonActionPerformed"/>
@@ -151,7 +107,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="AddClientButton">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Add Client"/>
+            <Property name="text" type="java.lang.String" value="Add"/>
             <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
               <Dimension value="[95, 26]"/>
             </Property>
@@ -170,7 +126,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="CityFilterButton">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Filter clients by city"/>
+            <Property name="text" type="java.lang.String" value="Filter by city"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CityFilterButtonActionPerformed"/>
@@ -178,7 +134,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="UpdateClientRow">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Update Client"/>
+            <Property name="text" type="java.lang.String" value="Update"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="UpdateClientRowActionPerformed"/>
@@ -206,28 +162,12 @@
             </Component>
           </SubComponents>
         </Container>
-        <Component class="javax.swing.JButton" name="AddPastryButton">
+        <Component class="javax.swing.JButton" name="BackButton">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Add Pastry"/>
+            <Property name="text" type="java.lang.String" value="Back"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="AddPastryButtonActionPerformed"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JButton" name="DeletePastryButton">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Delete Pastry"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="DeletePastryButtonActionPerformed"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JButton" name="UpdatePastryButton">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Update Pastry"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="UpdatePastryButtonActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BackButtonActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>
