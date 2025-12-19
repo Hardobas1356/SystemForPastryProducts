@@ -115,6 +115,23 @@ public class ClientRepository
 
         return rows > 0;
     }
+    
+    public Client getClientById(int id) throws SQLException
+    {
+        CheckConnection();
+        Client client=new Client();
+        String sql="select*from Client where id=?";
+        try(PreparedStatement stmt = connect.prepareStatement(sql))
+        {
+            stmt.setInt(1, id);
+            ResultSet rs=stmt.executeQuery();
+            while(rs.next())
+            {
+                client=new Client(rs.getInt("Id"), rs.getString("Name"), rs.getString("Adress"), rs.getString("City"));
+            }
+        }
+        return client;
+    }
 
     private void CheckConnection() throws SQLException
     {

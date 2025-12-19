@@ -97,6 +97,23 @@ public class PastryRepository
         return rows > 0;
     }
 
+    public Pastry getPastryById(int id) throws SQLException
+    {
+        CheckConnection();
+        
+        String sql="select*from Pastry where id=?";
+        Pastry pastry=new Pastry();
+        try(PreparedStatement stmt = connect.prepareStatement(sql))
+        {
+            stmt.setInt(1, id);
+            ResultSet rs=stmt.executeQuery();
+            while(rs.next())
+            {
+                pastry=new Pastry(rs.getInt("Id"), rs.getString("Name"), rs.getDouble("Price"), rs.getInt("Amount"));
+            }
+        }
+        return pastry;
+    }
     private void CheckConnection() throws SQLException
     {
         if (connect == null)
