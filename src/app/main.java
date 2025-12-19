@@ -487,7 +487,7 @@ public class main extends javax.swing.JFrame
             {
                 JOptionPane.showMessageDialog(this, "All fields are required.");
 
-                continue;
+                continue; 
             }
 
             try
